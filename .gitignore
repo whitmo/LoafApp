@@ -16,3 +16,4 @@ lib
 loaf.egg-info/*
 pip-log.txt
 virtual-env/*
+*.egg-info
