@@ -60,3 +60,5 @@ def init_model(engine):
 
 # Import your model modules here.
 from loafapp.model.auth import User, Group, Permission
+
+
