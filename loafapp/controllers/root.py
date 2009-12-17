@@ -11,6 +11,7 @@ from loafapp.model import DBSession, metadata
 from loafapp.controllers.error import ErrorController
 from loafapp import model
 from loafapp.controllers.secure import SecureController
+from tgext.geo.featureserver import FeatureServerController
 
 __all__ = ['RootController']
 
@@ -30,10 +31,12 @@ class RootController(BaseController):
     
     """
     secc = SecureController()
-    
     admin = Catwalk(model, DBSession)
-    
     error = ErrorController()
+    
+    paths = FeatureServerController("paths", DBSession)
+    spots = FeatureServerController("spots", DBSession)
+    areas = FeatureServerController("areas", DBSession)
 
     @expose('loafapp.templates.index')
     def index(self):
