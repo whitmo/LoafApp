@@ -16,7 +16,7 @@ class Spot(DeclarativeBase):
 
 
 class Path(DeclarativeBase):
-    __tablename__ = 'pathes'
+    __tablename__ = 'paths'
     id = Column(Integer, primary_key=True)
     name = Column(Unicode, nullable=False)
     width = Column(Integer)
