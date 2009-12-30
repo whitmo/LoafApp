@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 """Main Controller"""
-
-from tg import expose, flash, require, url, request, redirect
-from pylons.i18n import ugettext as _, lazy_ugettext as l_
 from catwalk.tg2 import Catwalk
-from repoze.what import predicates
+from loafapp import model
+from loafapp.controllers.error import ErrorController
+from loafapp.controllers.secure import SecureController
+from loafapp.controllers.feature import LFC
 
 from loafapp.lib.base import BaseController
-from loafapp.model import DBSession, metadata
-from loafapp.controllers.error import ErrorController
-from loafapp import model
-from loafapp.controllers.secure import SecureController
-from tgext.geo.featureserver import FeatureServerController
+from loafapp.model import DBSession
+from pylons.i18n import ugettext as _, lazy_ugettext as l_
+from repoze.what import predicates
+from tg import expose, flash, require, url, request, redirect
+#from tgext.geo.featureserver import FeatureServerController
 
 __all__ = ['RootController']
 
@@ -33,15 +33,29 @@ class RootController(BaseController):
     secc = SecureController()
     admin = Catwalk(model, DBSession)
     error = ErrorController()
-    
-    paths = FeatureServerController("paths", DBSession)
-    spots = FeatureServerController("spots", DBSession)
-    areas = FeatureServerController("areas", DBSession)
+
+    #spots = FeatureServerController("spots", DBSession)
+    spots = LFC("spots", DBSession)
 
     @expose('loafapp.templates.index')
     def index(self):
         """Handle the front-page."""
         return dict(page='index')
+
+    @expose('loafapp.templates.ol')
+    def ol(self):
+        """Handle the front-page."""
+        return dict(page='ol')
+
+    @expose('loafapp.templates.json')
+    def json(self):
+        """Handle the front-page."""
+        return dict(page='json')
+
+    @expose('loafapp.templates.kml')
+    def kml(self):
+        """Handle the front-page."""
+        return dict(page='kml')
 
     @expose('loafapp.templates.about')
     def about(self):
